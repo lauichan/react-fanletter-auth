@@ -1,6 +1,6 @@
-import { aespa } from "@static/data";
 import { useDispatch, useSelector } from "react-redux";
-import { selectMember } from "@store/modules/member";
+import { aespa } from "../../static/data";
+import { selectMember } from "../../store/modules/member";
 
 function MemberCard() {
   const member = useSelector((state) => state.member);
@@ -14,12 +14,7 @@ function MemberCard() {
     <section>
       {aespa.map(({ id, name }) => {
         return (
-          <button
-            type="button"
-            key={id}
-            onClick={() => handleOnClick(name)}
-            $backColor={member === name ? "white" : "#f9f9f9"}
-          >
+          <button type="button" key={id} onClick={() => handleOnClick(name)}>
             {name}
           </button>
         );

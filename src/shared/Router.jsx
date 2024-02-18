@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Layout from "./Layout";
-import Home from "@pages/Home";
-import Detail from "@pages/Detail";
+import Home from "../pages/Home";
+import Detail from "../pages/Detail";
+import Layout from "../components/layout/Layout";
 
 function Router() {
   return (

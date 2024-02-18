@@ -1,4 +1,4 @@
-import { aespa } from "@static/data";
+import { aespa } from "../../static/data";
 
 function FanLetterForm({
   data = { nickname: "", content: "", writedTo: "" },

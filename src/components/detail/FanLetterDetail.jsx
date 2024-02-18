@@ -1,16 +1,7 @@
-import { deleteFanLetter } from "@store/modules/fanletter";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-// 0000년 00월 00일 월요일
-function timeString(date) {
-  return new Date(date).toLocaleDateString("ko-kr", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-}
+import { timeString } from "../../utils/date";
+import { deleteFanLetter } from "../../store/modules/fanletter";
 
 function FanLetterDetail({ article, changeEditMode }) {
   const dispatch = useDispatch();

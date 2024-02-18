@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import styles from "./Layout.module.css";
 
 const Header = () => {
   return (
@@ -23,7 +24,7 @@ const Footer = () => {
 
 function Layout({ children }) {
   return (
-    <div>
+    <div className={styles.container}>
       <Header />
       <main>{children}</main>
       <Footer />

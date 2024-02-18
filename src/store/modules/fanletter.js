@@ -1,4 +1,4 @@
-import { fanLetters } from "@static/data";
+import { fanLetters } from "../../static/data";
 
 const ADD_FANLETTER = "fanletter/ADD_FANLETTER";
 const DELETE_FANLETTER = "fanletter/DELETE_FANLETTER";

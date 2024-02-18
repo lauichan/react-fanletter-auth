@@ -1,10 +1,10 @@
-import FanLetterDetail from "@components/FanLetterDetail";
-import FanLetterForm from "@components/FanLetterForm";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { updateFanLetter } from "@store/modules/fanletter";
-import { selectMember } from "@store/modules/member";
+import { updateFanLetter } from "../store/modules/fanletter";
+import { selectMember } from "../store/modules/member";
+import FanLetterForm from "../components/home/FanLetterForm";
+import FanLetterDetail from "../components/detail/FanLetterDetail";
 
 function Detail() {
   const dispatch = useDispatch();

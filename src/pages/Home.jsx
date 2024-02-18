@@ -1,9 +1,9 @@
-import FanLetterForm from "@components/FanLetterForm";
-import FanLetterList from "@components/FanLetterList";
-import MemberCard from "@components/MemberCard";
 import { useDispatch, useSelector } from "react-redux";
-import { addFanLetter } from "@store/modules/fanletter";
-import { selectMember } from "@store/modules/member";
+import { addFanLetter } from "../store/modules/fanletter";
+import { selectMember } from "../store/modules/member";
+import FanLetterForm from "../components/home/FanLetterForm";
+import MemberCard from "../components/home/MemberCard";
+import FanLetterList from "../components/home/FanLetterList";
 
 function Home() {
   const dispatch = useDispatch();

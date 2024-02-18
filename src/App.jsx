@@ -1,4 +1,5 @@
-import Router from "@shared/Router";
+import "./reset.css";
+import Router from "./shared/Router";
 
 function App() {
   return (
