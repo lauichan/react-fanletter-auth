@@ -15,14 +15,20 @@ function FanLetterDetail({ article }) {
     setEditContent(e.target.value);
   };
 
-  const changeEditMode = () => {
-    setEditMode(!editMode);
+  const changeEditMode = (mode) => {
+    setEditMode(mode);
   };
 
   const handleEditBtn = () => {
-    changeEditMode();
+    changeEditMode(true);
     if (!editMode) return;
-    dispatch(updateFanLetter({ ...article, content: editContent }));
+    if (article.content === editContent) {
+      alert("수정된 내용이 없습니다.");
+      return;
+    } else {
+      dispatch(updateFanLetter({ ...article, content: editContent }));
+      changeEditMode(false);
+    }
   };
 
   const handleDeleteBtn = (id) => {
