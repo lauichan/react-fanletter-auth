@@ -1,8 +1,7 @@
-import { combineReducers, createStore } from "redux";
 import fanletter from "../modules/fanletter";
 import member from "../modules/member";
+import { configureStore } from "@reduxjs/toolkit";
 
-const rootReduceer = combineReducers({ fanletter, member });
-const store = createStore(rootReduceer);
+const store = configureStore({ reducer: { fanletter, member } });
 
 export default store;
