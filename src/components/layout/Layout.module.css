@@ -5,4 +5,24 @@
   max-width: 800px;
   margin: 0 auto;
   width: 100%;
+  min-height: 100vh;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  height: 50px;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  margin-top: auto;
 }

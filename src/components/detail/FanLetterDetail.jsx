@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { timeString } from "../../utils/date";
 import { deleteFanLetter, updateFanLetter } from "../../store/modules/fanletter";
 import { useState } from "react";
+import styles from "./FanLetterDetail.module.css";
 
 function FanLetterDetail({ article }) {
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ function FanLetterDetail({ article }) {
 
   return (
     <section>
-      <article>
+      <article className={styles.article}>
         <header>
           <img src={article.avatar} alt={article.nickname} />
           <span>{article.nickname}</span>

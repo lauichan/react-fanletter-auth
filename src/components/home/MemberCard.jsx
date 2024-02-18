@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { aespa } from "../../static/data";
 import { selectMember } from "../../store/modules/member";
+import styles from "./MemberCard.module.css";
 
 function MemberCard() {
   const member = useSelector((state) => state.member);
@@ -11,10 +12,15 @@ function MemberCard() {
   };
 
   return (
-    <section>
+    <section className={styles.section}>
       {aespa.map(({ id, name }) => {
         return (
-          <button type="button" key={id} onClick={() => handleOnClick(name)}>
+          <button
+            className={`${styles.button} ${member === name ? styles.selected : ""}`}
+            type="button"
+            key={id}
+            onClick={() => handleOnClick(name)}
+          >
             {name}
           </button>
         );

@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { aespa } from "../../static/data";
 import { addFanLetter } from "../../store/modules/fanletter";
 import { selectMember } from "../../store/modules/member";
+import styles from "./FanLetterForm.module.css";
 
 function FanLetterForm({ member }) {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ function FanLetterForm({ member }) {
 
   return (
     <section>
-      <form onSubmit={handleOnSubmit}>
+      <form className={styles.form} onSubmit={handleOnSubmit}>
         <input
           type="text"
           name="name"
@@ -41,7 +42,7 @@ function FanLetterForm({ member }) {
 
         <textarea name="content" placeholder="내용" maxLength={300} required></textarea>
 
-        <div>
+        <div className={styles.bottom}>
           To.
           <select name="sendto" title="sendto" required>
             <option>{member}</option>

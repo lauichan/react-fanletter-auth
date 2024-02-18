@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import styles from "./FanLetterList.module.css";
 
 function FanLetterList({ list }) {
   const navigate = useNavigate();
@@ -8,14 +9,14 @@ function FanLetterList({ list }) {
   };
 
   return (
-    <section>
+    <section className={styles.section}>
       {list.length === 0 ? (
         <p>팬 레터가 없습니다.</p>
       ) : (
-        <ul>
+        <ul className={styles.ul}>
           {list.map(({ id, avatar, nickname, content }) => {
             return (
-              <li key={id} onClick={() => handleOnClick(id)}>
+              <li className={styles.li} key={id} onClick={() => handleOnClick(id)}>
                 <img src={avatar} alt={nickname}></img>
                 <div>
                   <strong>{nickname}</strong>

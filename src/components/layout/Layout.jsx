@@ -4,7 +4,7 @@ import styles from "./Layout.module.css";
 
 const Header = () => {
   return (
-    <header>
+    <header className={styles.header}>
       <h1>
         <Link to="/">에스파 팬레터 콜렉션</Link>
       </h1>
@@ -14,7 +14,7 @@ const Header = () => {
 
 const Footer = () => {
   return (
-    <footer>
+    <footer className={styles.footer}>
       <a href="https://github.com/lauichan/react-fan-letter" target="_blank" rel="noreferrer">
         깃허브
       </a>
@@ -26,7 +26,7 @@ function Layout({ children }) {
   return (
     <div className={styles.container}>
       <Header />
-      <main>{children}</main>
+      <main className={styles.main}>{children}</main>
       <Footer />
     </div>
   );
