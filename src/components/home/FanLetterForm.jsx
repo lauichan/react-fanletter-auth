@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { aespa } from "../../static/data";
-import { addFanLetter } from "../../store/modules/fanletter";
+import { __addFanLetter } from "../../store/modules/fanletter";
 import { selectMember } from "../../store/modules/member";
 import styles from "./FanLetterForm.module.css";
 
@@ -22,7 +22,7 @@ function FanLetterForm({ member }) {
 
     if (!window.confirm("팬레터 작성 확인")) return;
 
-    dispatch(addFanLetter(formData));
+    dispatch(__addFanLetter(formData));
     dispatch(selectMember(formData.writedTo));
     e.target.reset();
   };

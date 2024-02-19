@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { timeString } from "../../utils/date";
-import { deleteFanLetter, updateFanLetter } from "../../store/modules/fanletter";
+import { __deleteFanLetter, __updateFanLetter } from "../../store/modules/fanletter";
 import { useState } from "react";
 import styles from "./FanLetterDetail.module.css";
 
@@ -27,14 +27,14 @@ function FanLetterDetail({ article }) {
       alert("수정된 내용이 없습니다.");
       return;
     } else {
-      dispatch(updateFanLetter({ ...article, content: editContent }));
+      dispatch(__updateFanLetter({ ...article, content: editContent }));
       changeEditMode(false);
     }
   };
 
   const handleDeleteBtn = (id) => {
     if (window.confirm("삭제 확인")) {
-      dispatch(deleteFanLetter(id));
+      dispatch(__deleteFanLetter(id));
       navigate("/");
     }
   };
