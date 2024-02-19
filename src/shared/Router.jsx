@@ -1,15 +1,22 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Layout from "../components/layout/Layout";
 import Home from "../pages/Home";
 import Detail from "../pages/Detail";
-import Layout from "../components/layout/Layout";
+import Auth from "../pages/Auth";
+import Profile from "../pages/Profile";
+import Protected from "./Protected";
 
 function Router() {
   return (
     <BrowserRouter>
       <Layout>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="detail/:id" element={<Detail />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route element={<Protected />}>
+            <Route path="/" element={<Home />} />
+            <Route path="detail/:id" element={<Detail />} />
+            <Route path="/profile" element={<Profile />} />
+          </Route>
           <Route path="*" element={<Navigate raplace to="/" />} />
         </Routes>
       </Layout>
