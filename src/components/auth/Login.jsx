@@ -1,23 +1,23 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import authAPI from "../../apis/auth";
-import { logIn } from "../../store/modules/auth";
+import { __logIn } from "../../store/modules/auth";
 import styles from "./Login.module.css";
 
 function LogIn({ handleToggle }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
     const { id, password } = e.target;
-    const { data } = await authAPI.post("/login?expiresIn=10m", {
-      id: id.value,
-      password: password.value,
-    });
-    dispatch(logIn(data));
+    dispatch(
+      __logIn({
+        id: id.value,
+        password: password.value,
+      })
+    );
     navigate("/");
-    console.log("로그인 성공", data);
+    console.log("로그인 성공");
   };
 
   return (
