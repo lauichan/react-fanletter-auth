@@ -1,0 +1,46 @@
+.section {
+  max-width: 600px;
+  width: 100%;
+  margin: 1rem auto;
+  padding: 2rem;
+  background: #f6f8fa;
+  border-radius: 6px;
+}
+
+.section h1 {
+  font-weight: bold;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form label {
+  color: #666;
+  font-size: 90%;
+}
+
+.form input {
+  width: 100%;
+  margin-top: 0.3rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0.5rem;
+}
+
+.form button {
+  padding: 0.5rem;
+  border: none;
+  color: white;
+  background-color: #0d6efd;
+}
+
+.form button.less {
+  border: 1px solid #ddd;
+  color: inherit;
+  background-color: #f6f8fa;
+}
