@@ -10,3 +10,7 @@ button {
   font-family: inherit;
   outline: none;
 }
+
+button {
+  cursor: pointer;
+}

@@ -26,6 +26,7 @@
 .article > header > time {
   margin-left: auto;
   font-size: 90%;
+  color: #666;
 }
 
 .article > footer {
