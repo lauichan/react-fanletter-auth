@@ -7,6 +7,7 @@ import styles from "./FanLetterForm.module.css";
 function FanLetterForm({ member }) {
   const dispatch = useDispatch();
   const { user, isLoading } = useSelector((state) => state.auth);
+  console.log(user.avatar);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -15,10 +16,11 @@ function FanLetterForm({ member }) {
     const formData = {
       id: crypto.randomUUID(),
       createdAt: new Date().toISOString(),
-      avatar: "https://t1.kakaocdn.net/together_image/common/avatar/avatar.png",
+      avatar: user.avatar ?? "https://t1.kakaocdn.net/together_image/common/avatar/avatar.png",
       nickname: user.nickname,
       content: content.value,
       writedTo: sendto.value,
+      userId: user.userId,
     };
 
     if (!window.confirm("팬레터 작성 확인")) return;
