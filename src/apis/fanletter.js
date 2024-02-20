@@ -10,7 +10,7 @@ fanLetterAPI.interceptors.request.use(
     return config;
   },
   function (error) {
-    console.log("요청 오류", error);
+    console.error("요청 오류", error);
     return Promise.reject(error);
   }
 );
@@ -22,7 +22,7 @@ fanLetterAPI.interceptors.response.use(
   },
 
   function (error) {
-    console.log("응답 오류", error);
+    console.error("응답 오류", error);
     return Promise.reject(error);
   }
 );

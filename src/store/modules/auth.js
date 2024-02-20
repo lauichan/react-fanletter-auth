@@ -1,7 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authAPI from "../../apis/auth";
 
-const initialState = null;
+const initialState = {
+  user: {
+    accessToken: localStorage.getItem("accessToken"),
+    userId: localStorage.getItem("userId"),
+    avatar: localStorage.getItem("avatar"),
+    nickname: localStorage.getItem("nickname"),
+  },
+  isLoading: false,
+  error: null,
+};
 
 export const __logIn = createAsyncThunk("auth/login", async (payload, thunkAPI) => {
   try {
@@ -16,19 +25,25 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    logOut(state, action) {
-      return null;
+    logOut: (state, action) => {
+      state.user = null;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(__logIn.pending, (state) => {})
-      .addCase(__logIn.rejected, (state) => {})
+      .addCase(__logIn.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(__logIn.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload.response.data.message;
+      })
       .addCase(__logIn.fulfilled, (state, action) => {
-        return action.payload;
+        state.isLoading = false;
+        state.user = action.payload;
       });
   },
 });
 
-export const { logIn, logOut } = authSlice.actions;
+export const { logOut } = authSlice.actions;
 export default authSlice.reducer;
