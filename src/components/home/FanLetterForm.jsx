@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { aespa } from "../../static/data";
 import { __addFanLetter } from "../../store/modules/fanletter";
 import { selectMember } from "../../store/modules/member";
@@ -6,16 +6,17 @@ import styles from "./FanLetterForm.module.css";
 
 function FanLetterForm({ member }) {
   const dispatch = useDispatch();
+  const { user, isLoading } = useSelector((state) => state.auth);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    const { name, content, sendto } = e.target;
+    const { content, sendto } = e.target;
 
     const formData = {
       id: crypto.randomUUID(),
       createdAt: new Date().toISOString(),
       avatar: "https://t1.kakaocdn.net/together_image/common/avatar/avatar.png",
-      nickname: name.value,
+      nickname: user.nickname,
       content: content.value,
       writedTo: sendto.value,
     };
@@ -30,15 +31,7 @@ function FanLetterForm({ member }) {
   return (
     <section>
       <form className={styles.form} onSubmit={handleOnSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="닉네임"
-          maxLength={30}
-          autoComplete="true"
-          autoFocus
-          required
-        ></input>
+        <p>{user.nickname}</p>
 
         <textarea name="content" placeholder="내용" maxLength={300} required></textarea>
 
@@ -54,7 +47,9 @@ function FanLetterForm({ member }) {
               );
             })}
           </select>
-          <button type="submit">팬레터 등록</button>
+          <button type="submit" disabled={isLoading}>
+            팬레터 등록
+          </button>
         </div>
       </form>
     </section>
