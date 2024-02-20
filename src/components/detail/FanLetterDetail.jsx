@@ -56,7 +56,7 @@ function FanLetterDetail({ article }) {
         )}
         <footer>
           <span>To. {article.writedTo}</span>
-          {user.id === article.userId ? (
+          {user.userId === article.userId ? (
             <>
               <button onClick={handleEditBtn}>수정</button>
               <button onClick={() => handleDeleteBtn(article.id)}>삭제</button>
