@@ -5,7 +5,7 @@ const initialState = {
   user: {
     accessToken: localStorage.getItem("accessToken"),
     userId: localStorage.getItem("userId"),
-    avatar: localStorage.getItem("avatar"),
+    avatar: localStorage.getItem("avatar") ?? "",
     nickname: localStorage.getItem("nickname"),
   },
   isLoading: false,
@@ -15,6 +15,16 @@ const initialState = {
 export const __logIn = createAsyncThunk("auth/login", async (payload, thunkAPI) => {
   try {
     const { data } = await authAPI.post("/login?expiresIn=10m", payload);
+    return thunkAPI.fulfillWithValue(data);
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
+export const __setUser = createAsyncThunk("auth/setUser", async (payload, thunkAPI) => {
+  try {
+    console.log(payload);
+    const { data } = await authAPI.patch("/profile", payload);
     return thunkAPI.fulfillWithValue(data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -41,6 +51,24 @@ const authSlice = createSlice({
       .addCase(__logIn.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload;
+      });
+    builder
+      .addCase(__setUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(__setUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload.response.data.message;
+      })
+      .addCase(__setUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        console.log(action.payload);
+        if (action.payload.avatar) {
+          state.user.avatar = action.payload.avatar;
+        }
+        if (action.payload.nickname) {
+          state.user.nickname = action.payload.nickname;
+        }
       });
   },
 });
