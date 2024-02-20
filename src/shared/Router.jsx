@@ -3,7 +3,7 @@ import Layout from "../components/layout/Layout";
 import Home from "../pages/Home";
 import Detail from "../pages/Detail";
 import Auth from "../pages/Auth";
-import Profile from "../pages/Profile";
+import MyPage from "../pages/MyPage";
 import Protected from "./Protected";
 
 function Router() {
@@ -15,7 +15,7 @@ function Router() {
           <Route element={<Protected />}>
             <Route path="/" element={<Home />} />
             <Route path="detail/:id" element={<Detail />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={<MyPage />} />
           </Route>
           <Route path="*" element={<Navigate raplace to="/" />} />
         </Routes>
