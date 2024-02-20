@@ -41,9 +41,9 @@
 }
 
 button {
-  border: 1px solid #ddd;
+  border: none;
   border-radius: 6px;
-  padding: 0.2rem 0.5rem;
+  padding: 0.3rem 0.5rem;
 }
 
 textarea {
