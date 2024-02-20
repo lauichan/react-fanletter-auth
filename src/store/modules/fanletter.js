@@ -1,7 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import fanLetterAPI from "../../apis/fanletter";
 
-const initialState = [];
+const initialState = {
+  fanletters: [],
+  isLoading: false,
+  error: null,
+};
 
 export const __getFanLetter = createAsyncThunk("fanletter/get", async (payload, thunkAPI) => {
   try {
@@ -45,26 +49,50 @@ const fanletterSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(__getFanLetter.pending, (state) => {})
-      .addCase(__getFanLetter.rejected, (state) => {})
+      .addCase(__getFanLetter.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(__getFanLetter.rejected, (state) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
       .addCase(__getFanLetter.fulfilled, (state, action) => {
-        return action.payload;
+        state.fanletters = action.payload;
+      });
+    builder
+      .addCase(__addFanLetter.pending, (state) => {
+        state.isLoading = true;
       })
-      .addCase(__addFanLetter.pending, (state) => {})
-      .addCase(__addFanLetter.rejected, (state) => {})
+      .addCase(__addFanLetter.rejected, (state) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
       .addCase(__addFanLetter.fulfilled, (state, action) => {
-        return [...state, action.payload];
+        state.fanletters.push(action.payload);
+      });
+    builder
+      .addCase(__updateFanLetter.pending, (state) => {
+        state.isLoading = true;
       })
-      .addCase(__updateFanLetter.pending, (state) => {})
-      .addCase(__updateFanLetter.rejected, (state) => {})
+      .addCase(__updateFanLetter.rejected, (state) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
       .addCase(__updateFanLetter.fulfilled, (state, action) => {
-        return state.map((letter) => (letter.id === action.payload.id ? action.payload : letter));
+        state.fanletters = state.fanletters.map((fanletter) =>
+          fanletter.id === action.payload.id ? action.payload : fanletter
+        );
+      });
+    builder
+      .addCase(__deleteFanLetter.pending, (state) => {
+        state.isLoading = true;
       })
-      .addCase(__deleteFanLetter.pending, (state) => {})
-      .addCase(__deleteFanLetter.rejected, (state) => {})
+      .addCase(__deleteFanLetter.rejected, (state) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
       .addCase(__deleteFanLetter.fulfilled, (state, action) => {
-        console.log(state, action);
-        return state.filter((letter) => letter.id !== action.payload.id);
+        state.fanletters = state.fanletters.filter((letter) => letter.id !== action.payload.id);
       });
   },
 });
