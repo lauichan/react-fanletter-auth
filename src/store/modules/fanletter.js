@@ -52,7 +52,7 @@ const fanletterSlice = createSlice({
       .addCase(__getFanLetter.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(__getFanLetter.rejected, (state) => {
+      .addCase(__getFanLetter.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       })
