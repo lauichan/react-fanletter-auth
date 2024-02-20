@@ -10,6 +10,7 @@ const Header = () => {
 
   const handleLogOut = () => {
     dispatch(logOut());
+    localStorage.clear();
   };
 
   return (
@@ -17,7 +18,7 @@ const Header = () => {
       <h1>
         <Link to="/">에스파 팬레터 콜렉션</Link>
       </h1>
-      {user ? (
+      {user?.accessToken ? (
         <>
           <Link className={styles.mypage} to="/profile">
             마이페이지
@@ -26,9 +27,7 @@ const Header = () => {
             로그아웃
           </button>
         </>
-      ) : (
-        ""
-      )}
+      ) : null}
     </header>
   );
 };
