@@ -44,3 +44,7 @@
   color: inherit;
   background-color: #f6f8fa;
 }
+
+.form input:disabled {
+  background-color: #f9f9f9;
+}
