@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { timeString } from "../../utils/date";
 import { __deleteFanLetter, __updateFanLetter } from "../../store/modules/fanletter";
@@ -11,6 +11,8 @@ function FanLetterDetail({ article }) {
 
   const [editMode, setEditMode] = useState(false);
   const [editContent, setEditContent] = useState(article.content);
+
+  const user = useSelector((state) => state.auth.user);
 
   const handleChange = (e) => {
     setEditContent(e.target.value);
@@ -54,8 +56,12 @@ function FanLetterDetail({ article }) {
         )}
         <footer>
           <span>To. {article.writedTo}</span>
-          <button onClick={handleEditBtn}>수정</button>
-          <button onClick={() => handleDeleteBtn(article.id)}>삭제</button>
+          {user.id === article.userId ? (
+            <>
+              <button onClick={handleEditBtn}>수정</button>
+              <button onClick={() => handleDeleteBtn(article.id)}>삭제</button>
+            </>
+          ) : null}
         </footer>
       </article>
     </section>
