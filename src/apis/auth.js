@@ -7,10 +7,12 @@ const authAPI = axios.create({
 authAPI.interceptors.request.use(
   function (config) {
     console.log("요청 성공", config);
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) config.headers.authorization = `Bearer ${accessToken}`;
     return config;
   },
   function (error) {
-    console.error("요청 오류", error);
+    console.error("요청 오류", error.response.data.message);
     return Promise.reject(error);
   }
 );
@@ -22,7 +24,8 @@ authAPI.interceptors.response.use(
   },
 
   function (error) {
-    console.error("응답 오류", error);
+    console.error("응답 오류", error.response.data.message);
+    alert(error.response.data.message);
     return Promise.reject(error);
   }
 );
