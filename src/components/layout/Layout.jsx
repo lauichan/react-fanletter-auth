@@ -6,7 +6,7 @@ import { logOut } from "../../store/modules/auth";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
+  const user = useSelector((state) => state.auth.user);
 
   const handleLogOut = () => {
     dispatch(logOut());
@@ -17,7 +17,7 @@ const Header = () => {
       <h1>
         <Link to="/">에스파 팬레터 콜렉션</Link>
       </h1>
-      {auth ? (
+      {user ? (
         <>
           <Link className={styles.mypage} to="/profile">
             마이페이지

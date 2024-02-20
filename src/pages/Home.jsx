@@ -4,7 +4,7 @@ import MemberCard from "../components/home/MemberCard";
 import FanLetterList from "../components/home/FanLetterList";
 
 function Home() {
-  const comments = useSelector((state) => state.fanletter);
+  const comments = useSelector((state) => state.fanletter.fanletters);
   const member = useSelector((state) => state.member);
 
   const commentList = comments.filter((letter) => letter.writedTo === member);

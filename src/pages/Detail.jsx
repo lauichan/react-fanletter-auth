@@ -4,7 +4,7 @@ import FanLetterDetail from "../components/detail/FanLetterDetail";
 
 function Detail() {
   const { id } = useParams();
-  const comments = useSelector((state) => state.fanletter);
+  const comments = useSelector((state) => state.fanletter.fanletters);
   const article = comments.find((letter) => letter.id === id) ?? {};
 
   return <FanLetterDetail article={article} />;
