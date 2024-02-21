@@ -2,9 +2,9 @@ import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 
 function Protected() {
-  const user = useSelector((state) => state.auth.user);
+  const { user, isError } = useSelector((state) => state.auth);
 
-  if (!user?.accessToken) {
+  if (!user?.accessToken || isError) {
     return <Navigate to="/auth" />;
   }
 

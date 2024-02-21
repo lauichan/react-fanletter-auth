@@ -1,16 +1,28 @@
-import authAPI from "../../apis/auth";
+import { useDispatch } from "react-redux";
 import styles from "./SignUp.module.css";
+import { __register } from "../../store/modules/auth";
+import { useEffect } from "react";
 
-function SignUp({ handleToggle }) {
+function SignUp({ handleToggle, error, isError }) {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (error !== null && !isError) {
+      alert("가입한 아이디로 로그인 해주세요");
+      handleToggle();
+    }
+  }, [isError]);
+
   const handleSignUp = async (e) => {
     e.preventDefault();
     const { id, password, nickname } = e.target;
-    const response = await authAPI.post("/register", {
-      id: id.value,
-      password: password.value,
-      nickname: nickname.value,
-    });
-    console.log(response);
+    dispatch(
+      __register({
+        id: id.value,
+        password: password.value,
+        nickname: nickname.value,
+      })
+    );
   };
 
   return (
@@ -29,6 +41,7 @@ function SignUp({ handleToggle }) {
           <label>닉네임</label>
           <input type="text" name="nickname" minLength={1} maxLength={10}></input>
         </p>
+        {error ? <p className={styles.error}>{error}</p> : null}
         <button>회원가입</button>
         <button className={styles.less} type="button" onClick={handleToggle}>
           로그인

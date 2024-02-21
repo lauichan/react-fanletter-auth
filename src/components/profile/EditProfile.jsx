@@ -2,14 +2,28 @@ import { useState } from "react";
 import styles from "./Profile.module.css";
 import { useDispatch } from "react-redux";
 import { __setUser } from "../../store/modules/auth";
+import { __updateFanLetter } from "../../store/modules/fanletter";
+import authAPI from "../../apis/auth";
+import fanLetterAPI from "../../apis/fanletter";
 
 function EditProfile({ user, toggleMode }) {
   const dispatch = useDispatch();
 
+  const [nickname, setNickname] = useState(user.nickname);
   const [profileImg, setProfileImg] = useState("");
   const [previewImg, setPreviewImg] = useState(user.avatar);
 
-  const handleSubmit = (e) => {
+  const handleNickname = (e) => {
+    setNickname(e.target.value);
+  };
+
+  const handleImage = (e) => {
+    const uploadFile = e.target.files[0];
+    setProfileImg(uploadFile);
+    setPreviewImg(URL.createObjectURL(uploadFile));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData();
@@ -19,17 +33,22 @@ function EditProfile({ user, toggleMode }) {
     }
 
     if (e.target.nickname.value !== user.nickname) {
-      formData.append("nickname", e.target.nickname.value);
+      formData.append("nickname", nickname);
     }
 
     dispatch(__setUser(formData));
-    toggleMode();
-  };
 
-  const handleImage = (e) => {
-    const uploadFile = e.target.files[0];
-    setProfileImg(uploadFile);
-    setPreviewImg(URL.createObjectURL(uploadFile));
+    // 업데이트한 프로필 내가 작성했던 글에도 적용하기 (포기)
+    // const { data: userData } = await authAPI.get(`/user`);
+    // const { data } = await fanLetterAPI.get(`/fanletter?userId=${user.userId}`);
+
+    // const myFanletters = data.map((fanletter) => {
+    //   return { ...fanletter, nickname: response.nickname, avatar: response.avatar };
+    // });
+
+    // myFanletters.forEach((fanletter) => dispatch(__updateFanLetter(fanletter)));
+
+    toggleMode();
   };
 
   return (
@@ -47,7 +66,8 @@ function EditProfile({ user, toggleMode }) {
           name="nickname"
           minLength={1}
           maxLength={10}
-          defaultValue={user.nickname}
+          value={nickname}
+          onChange={handleNickname}
           autoFocus
         />
         <p>{user.userId}</p>

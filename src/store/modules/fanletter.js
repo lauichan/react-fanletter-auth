@@ -9,8 +9,8 @@ const initialState = {
 
 export const __getFanLetter = createAsyncThunk("fanletter/get", async (payload, thunkAPI) => {
   try {
-    const { data } = await fanLetterAPI.get("/fanletter");
-    return thunkAPI.fulfillWithValue(data);
+    const response = await fanLetterAPI.get("/fanletter?_sort=createdAt");
+    return thunkAPI.fulfillWithValue(response.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
   }

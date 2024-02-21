@@ -4,6 +4,7 @@ import { timeString } from "../../utils/date";
 import { __deleteFanLetter, __updateFanLetter } from "../../store/modules/fanletter";
 import { useState } from "react";
 import styles from "./FanLetterDetail.module.css";
+import { isValidToken } from "../../utils/token";
 
 function FanLetterDetail({ article }) {
   const dispatch = useDispatch();
@@ -23,6 +24,11 @@ function FanLetterDetail({ article }) {
   };
 
   const handleEditBtn = () => {
+    if (!isValidToken()) {
+      navigate("/auth");
+      return;
+    }
+
     changeEditMode(true);
     if (!editMode) return;
     if (article.content === editContent) {
@@ -35,6 +41,11 @@ function FanLetterDetail({ article }) {
   };
 
   const handleDeleteBtn = (id) => {
+    if (!isValidToken()) {
+      navigate("/auth");
+      return;
+    }
+
     if (window.confirm("삭제 확인")) {
       dispatch(__deleteFanLetter(id));
       navigate("/");

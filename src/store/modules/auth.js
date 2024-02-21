@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authAPI from "../../apis/auth";
+import fanLetterAPI from "../../apis/fanletter";
 
 const initialState = {
   user: {
@@ -9,12 +10,22 @@ const initialState = {
     nickname: localStorage.getItem("nickname"),
   },
   isLoading: false,
+  isError: false,
   error: null,
 };
 
 export const __logIn = createAsyncThunk("auth/login", async (payload, thunkAPI) => {
   try {
-    const { data } = await authAPI.post("/login?expiresIn=10m", payload);
+    const { data } = await authAPI.post("/login?expiresIn=1m", payload);
+    return thunkAPI.fulfillWithValue(data);
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
+export const __register = createAsyncThunk("auth/register", async (payload, thunkAPI) => {
+  try {
+    const { data } = await authAPI.post("/register", payload);
     return thunkAPI.fulfillWithValue(data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -23,7 +34,6 @@ export const __logIn = createAsyncThunk("auth/login", async (payload, thunkAPI) 
 
 export const __setUser = createAsyncThunk("auth/setUser", async (payload, thunkAPI) => {
   try {
-    console.log(payload);
     const { data } = await authAPI.patch("/profile", payload);
     return thunkAPI.fulfillWithValue(data);
   } catch (error) {
@@ -43,26 +53,46 @@ const authSlice = createSlice({
     builder
       .addCase(__logIn.pending, (state) => {
         state.isLoading = true;
+        state.isError = false;
       })
       .addCase(__logIn.rejected, (state, action) => {
         state.isLoading = false;
+        state.isError = true;
         state.error = action.payload.response.data.message;
       })
       .addCase(__logIn.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.isError = false;
         state.user = action.payload;
+      });
+    builder
+      .addCase(__register.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(__register.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.payload.response.data.message;
+      })
+      .addCase(__register.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isError = false;
       });
     builder
       .addCase(__setUser.pending, (state) => {
         state.isLoading = true;
+        state.isError = false;
       })
       .addCase(__setUser.rejected, (state, action) => {
         state.isLoading = false;
+        state.isError = true;
         state.error = action.payload.response.data.message;
       })
       .addCase(__setUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log(action.payload);
+        state.isError = false;
+        console.log("aaaaa", action.payload);
         if (action.payload.avatar) {
           state.user.avatar = action.payload.avatar;
         }

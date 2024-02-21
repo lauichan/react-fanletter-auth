@@ -3,14 +3,22 @@ import { aespa } from "../../static/data";
 import { __addFanLetter } from "../../store/modules/fanletter";
 import { selectMember } from "../../store/modules/member";
 import styles from "./FanLetterForm.module.css";
+import { isValidToken } from "../../utils/token";
+import { useNavigate } from "react-router-dom";
 
 function FanLetterForm({ member }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user, isLoading } = useSelector((state) => state.auth);
-  console.log(user.avatar);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+
+    if (isValidToken()) {
+      navigate("/auth");
+      return;
+    }
+
     const { content, sendto } = e.target;
 
     const formData = {
