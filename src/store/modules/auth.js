@@ -34,7 +34,23 @@ export const __register = createAsyncThunk("auth/register", async (payload, thun
 
 export const __setUser = createAsyncThunk("auth/setUser", async (payload, thunkAPI) => {
   try {
-    const { data } = await authAPI.patch("/profile", payload);
+    const { data } = await authAPI.patch("/profile", payload, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    const obj = {};
+    const { nickname, avatar } = data;
+    if (nickname) obj.nickname = nickname;
+    if (avatar) obj.avatar = avatar;
+
+    const userId = localStorage.getItem("userId");
+    const { data: myLetters } = await fanLetterAPI.get(`/fanletter?userId=${userId}`);
+    for (const myLetter of myLetters) {
+      await fanLetterAPI.patch(`/fanletter/${myLetter.id}`, obj);
+    }
+
     return thunkAPI.fulfillWithValue(data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
