@@ -5,6 +5,7 @@ import { __deleteFanLetter, __updateFanLetter } from "../../store/modules/fanlet
 import { useState } from "react";
 import styles from "./FanLetterDetail.module.css";
 import { isValidToken } from "../../utils/token";
+import { logOut } from "../../store/modules/auth";
 
 function FanLetterDetail({ article }) {
   const dispatch = useDispatch();
@@ -23,9 +24,9 @@ function FanLetterDetail({ article }) {
     setEditMode(mode);
   };
 
-  const handleEditBtn = () => {
-    if (!isValidToken()) {
-      navigate("/auth");
+  const handleEditBtn = async () => {
+    if (!(await isValidToken())) {
+      dispatch(logOut());
       return;
     }
 
@@ -40,9 +41,9 @@ function FanLetterDetail({ article }) {
     }
   };
 
-  const handleDeleteBtn = (id) => {
-    if (!isValidToken()) {
-      navigate("/auth");
+  const handleDeleteBtn = async (id) => {
+    if (!(await isValidToken())) {
+      dispatch(logOut());
       return;
     }
 

@@ -4,18 +4,17 @@ import { __addFanLetter } from "../../store/modules/fanletter";
 import { selectMember } from "../../store/modules/member";
 import styles from "./FanLetterForm.module.css";
 import { isValidToken } from "../../utils/token";
-import { useNavigate } from "react-router-dom";
+import { logOut } from "../../store/modules/auth";
 
 function FanLetterForm({ member }) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { user, isLoading } = useSelector((state) => state.auth);
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
 
-    if (isValidToken()) {
-      navigate("/auth");
+    if (!(await isValidToken())) {
+      dispatch(logOut());
       return;
     }
 
