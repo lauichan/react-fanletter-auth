@@ -8,13 +8,13 @@ function Protected() {
 
   const { user, isError } = useSelector((state) => state.auth);
 
-  if (!user?.accessToken || isError) {
-    return <Navigate to="/auth" />;
-  }
-
   useEffect(() => {
     dispatch(__getFanLetter());
   }, [dispatch]);
+
+  if (!user?.accessToken || isError) {
+    return <Navigate to="/auth" />;
+  }
 
   return <Outlet />;
 }
