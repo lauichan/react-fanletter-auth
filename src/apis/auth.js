@@ -7,7 +7,7 @@ const authAPI = axios.create({
 authAPI.interceptors.request.use(
   function (config) {
     const accessToken = localStorage.getItem("accessToken");
-    if (accessToken) config.headers.authorization = `Bearer ${accessToken}`;
+    if (accessToken) config.headers["Authorization"] = `Bearer ${accessToken}`;
     return config;
   },
   function (error) {
