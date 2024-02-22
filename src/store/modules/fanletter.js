@@ -3,7 +3,7 @@ import fanLetterAPI from "../../apis/fanletter";
 
 const initialState = {
   fanletters: [],
-  isLoading: false,
+  isLoading: true,
   error: null,
 };
 
@@ -57,6 +57,7 @@ const fanletterSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(__getFanLetter.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.fanletters = action.payload;
       });
     builder
@@ -68,6 +69,7 @@ const fanletterSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(__addFanLetter.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.fanletters.push(action.payload);
       });
     builder
@@ -79,6 +81,7 @@ const fanletterSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(__updateFanLetter.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.fanletters = state.fanletters.map((fanletter) =>
           fanletter.id === action.payload.id ? action.payload : fanletter
         );
@@ -92,6 +95,7 @@ const fanletterSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(__deleteFanLetter.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.fanletters = state.fanletters.filter((letter) => letter.id !== action.payload.id);
       });
   },

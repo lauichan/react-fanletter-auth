@@ -4,9 +4,9 @@ import { Navigate, Outlet } from "react-router-dom";
 import { __getFanLetter } from "../store/modules/fanletter";
 
 function Protected() {
-  const { user, isError } = useSelector((state) => state.auth);
-
   const dispatch = useDispatch();
+
+  const { user, isError } = useSelector((state) => state.auth);
 
   if (!user?.accessToken || isError) {
     return <Navigate to="/auth" />;
