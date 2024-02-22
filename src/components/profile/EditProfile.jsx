@@ -17,6 +17,9 @@ function EditProfile({ user, toggleMode }) {
 
   const handleImage = (e) => {
     const uploadFile = e.target.files[0];
+    if (uploadFile.size > 1024 * 1024) {
+      return alert("최대 1MB까지 업로드 가능합니다.");
+    }
     setProfileImg(uploadFile);
     setPreviewImg(URL.createObjectURL(uploadFile));
   };
