@@ -42,8 +42,14 @@ export const __setUser = createAsyncThunk("auth/setUser", async (payload, thunkA
 
     const obj = {};
     const { nickname, avatar } = data;
-    if (nickname) obj.nickname = nickname;
-    if (avatar) obj.avatar = avatar;
+    if (nickname) {
+      obj.nickname = nickname;
+      localStorage.setItem("nickname", nickname);
+    }
+    if (avatar) {
+      obj.avatar = avatar;
+      localStorage.setItem("avatar", avatar);
+    }
 
     const userId = localStorage.getItem("userId");
     const { data: myLetters } = await fanLetterAPI.get(`/fanletter?userId=${userId}`);
@@ -108,7 +114,6 @@ const authSlice = createSlice({
       .addCase(__setUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
-        console.log("aaaaa", action.payload);
         if (action.payload.avatar) {
           state.user.avatar = action.payload.avatar;
         }
