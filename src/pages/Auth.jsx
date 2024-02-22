@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 function Auth() {
   const navigate = useNavigate();
-  const { user, error, isError, isLoading } = useSelector((state) => state.auth);
+  const { user, error, isError } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (user?.accessToken && !isError) {

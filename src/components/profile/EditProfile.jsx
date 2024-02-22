@@ -3,8 +3,6 @@ import styles from "./Profile.module.css";
 import { useDispatch } from "react-redux";
 import { __setUser } from "../../store/modules/auth";
 import { __updateFanLetter } from "../../store/modules/fanletter";
-import authAPI from "../../apis/auth";
-import fanLetterAPI from "../../apis/fanletter";
 
 function EditProfile({ user, toggleMode }) {
   const dispatch = useDispatch();
@@ -37,16 +35,6 @@ function EditProfile({ user, toggleMode }) {
     }
 
     dispatch(__setUser(formData));
-
-    // 업데이트한 프로필 내가 작성했던 글에도 적용하기 (포기)
-    // const { data: userData } = await authAPI.get(`/user`);
-    // const { data } = await fanLetterAPI.get(`/fanletter?userId=${user.userId}`);
-
-    // const myFanletters = data.map((fanletter) => {
-    //   return { ...fanletter, nickname: response.nickname, avatar: response.avatar };
-    // });
-
-    // myFanletters.forEach((fanletter) => dispatch(__updateFanLetter(fanletter)));
 
     toggleMode();
   };
